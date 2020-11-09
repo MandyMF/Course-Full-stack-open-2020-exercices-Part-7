@@ -7,6 +7,9 @@ import LoginForm from './components/LoginForm'
 import {initBlogs, addBlog} from './reducers/blogReducer'
 import {initUser} from './reducers/userReducer'
 import BlogList from './components/BlogList'
+import UsersInformation from './components/UsersInformation'
+
+import {Switch, Route} from 'react-router-dom'
 
 const App = () => {
 
@@ -31,13 +34,23 @@ const App = () => {
 
   return <div>{user === null ? 
   <LoginForm /> :
-  <BlogList>
-    <Togglable
-    buttonLabel='create new blog'
-    ref={blogFormRef}>
-      <BlogForm CreateBlog={CreateBlog} />
-    </Togglable>
-  </BlogList>
+  <Switch>
+
+    <Route path='/users'>
+      <UsersInformation />
+    </Route>
+
+    <Route path='/'>
+      <BlogList>
+      <Togglable
+      buttonLabel='create new blog'
+      ref={blogFormRef}>
+        <BlogForm CreateBlog={CreateBlog} />
+      </Togglable>
+      </BlogList>
+    </Route>
+
+  </Switch>
 }
 </div>
 }

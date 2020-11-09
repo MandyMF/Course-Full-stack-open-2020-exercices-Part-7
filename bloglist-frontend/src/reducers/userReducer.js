@@ -2,6 +2,7 @@ import blogService from '../services/blogs'
 import loginService from '../services/login'
 import {setNotification} from './notificationReducer'
 
+
 const notificationReducer = (state= null, action) => {
   switch(action.type){
   case 'INIT_USER':

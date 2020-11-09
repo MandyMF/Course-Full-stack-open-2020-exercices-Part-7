@@ -1,5 +1,4 @@
 import Notification from './Notification'
-import PropTypes from 'prop-types'
 import React from 'react'
 import {userLogin} from '../reducers/userReducer'
 import {useDispatch} from 'react-redux'
@@ -41,10 +40,6 @@ const LoginForm = () => {
     </form>
   </>
   )
-}
-
-LoginForm.propTypes = {
-  handleLogin: PropTypes.func.isRequired
 }
 
 export default LoginForm
