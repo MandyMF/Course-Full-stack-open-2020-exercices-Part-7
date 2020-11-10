@@ -3,6 +3,18 @@ import {useSelector, useDispatch} from 'react-redux'
 import {useRouteMatch, useHistory} from 'react-router-dom'
 import {likeBlog, deleteBlog, addComment} from '../reducers/blogReducer'
 
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  Button,
+  Typography,
+  Link,
+  TextField,
+  Divider
+} from '@material-ui/core'
+
 const BlogInfo = () =>{
   const history = useHistory()
   const dispatch = useDispatch()
@@ -41,42 +53,46 @@ const BlogInfo = () =>{
     <div>
     {
     blog ?
-    <div>
-    <h2>{blog.title} {blog.author}</h2>
+    <div >
+    <Typography variant="h5">{blog.title} {blog.author}</Typography>
       <div>
         </div>
-        <a href={blog.url}>{blog.url}</a>
-        <div>
-					{blog.likes} likes<button onClick={() => handleLikeBlog(blog)}>like</button>
-        </div>
-        {blog.user.name ? (<div>added by {blog.user.name}</div>) :
-                          <div>added by {blog.user.username}</div>
+        <Link href={blog.url}>{blog.url}</Link>
+        <Typography>
+					{blog.likes} likes   <Button color="primary" variant="contained" onClick={() => handleLikeBlog(blog)}>like</Button>
+        </Typography>
+        {blog.user.name ? (<Typography variant="h6">added by {blog.user.name}</Typography>) :
+                          <Typography variant="h6">added by {blog.user.username}</Typography>
         }
         {blog.user.username === username ?
-        <button onClick={() => handleDeleteBlog(blog)}>remove</button> :
+        <Button variant="contained" color="secondary" onClick={() => handleDeleteBlog(blog)}>remove</Button> :
         <></>}
 
-        <h3>comments</h3>
+        <Typography variant="h5">comments</Typography>
         <form onSubmit={handleAddComment}>
-        <input id='addComment' name='AddComment' />
-        <button type='submit'>add comment</button>
+        <TextField label="comment" id='addComment' name='AddComment' />
+        <Button type='submit'>add comment</Button>
         </form>
-
-        <ul>
+        <Divider style={{marginTop:"20px"}}/>
+        <Table>
+          <TableBody>
         {
           blog.comments.length > 0 ?
           blog.comments.map((comment, index) =>
-            <li key={index}>
+            <TableRow key={index}><TableCell >
               {comment}
-            </li>
+            </TableCell></TableRow>
           )
           :
-          <p>
+          <TableRow>
+          <TableCell>
             No comments
-          </p>
+          </TableCell>
+          </TableRow>
 
         }
-        </ul>
+        </TableBody>
+        </Table>
       </div>
       :
         null

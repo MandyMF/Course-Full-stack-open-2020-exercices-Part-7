@@ -3,6 +3,15 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 
 import { Link } from 'react-router-dom'
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHead,
+  Button,
+  Typography
+} from '@material-ui/core'
 
 const UsersInformation = () => { 
   
@@ -12,32 +21,42 @@ const UsersInformation = () => {
 
   return (
     <>
-      <h2>Users</h2>
+      <Typography variant="h6">Users Info:</Typography>
 
-      <table>
-        <tbody>
-        <tr>
-          <th>
-          </th>
-          <th>
+      <Table>
+        
+        <TableHead>
+          <TableRow>
+          <TableCell>
+          <Typography>
+            Users
+            </Typography>
+          </TableCell>
+          <TableCell>
+            <Typography>
             blogs created
-          </th>
-        </tr>
+            </Typography>
+          </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
         {
         userInfo.map(user => 
-        <tr key={user.id}>
-          <td>
-            <Link to={`/users/${user.id}`}>
+        <TableRow key={user.id}>
+          <TableCell>
+            <Button component={Link} to={`/users/${user.id}`}>
             {user.username}
-            </Link>
-          </td>
-          <td>
+            </Button>
+          </TableCell>
+          <TableCell>
+            <Typography>
             {user.blogs.length}
-          </td>
-        </tr>
+            </Typography>
+          </TableCell>
+        </TableRow>
         )}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </>
 )}
 

@@ -61,7 +61,7 @@ export const userLogout = () => {
 }
 
 export const initUser = () => {
-  return async (dispatch) => {
+  return (dispatch) => {
 
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     let user = null

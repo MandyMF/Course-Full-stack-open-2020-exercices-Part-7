@@ -2,6 +2,14 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  Typography
+} from '@material-ui/core'
+
 const User = () =>{
 
   const match = useRouteMatch('/users/:id')  
@@ -17,17 +25,19 @@ const User = () =>{
     {
     user ?
     <div>
-    <h2>{user.username}</h2>
-    <h3>added blogs</h3>
+    <Typography variant="h5">{user.username}</Typography>
+    <Typography variant="h6">added blogs:</Typography>
         {
         user.blogs.length > 0 ?
-        <ul>
+        <Table>
+          <TableBody>
           {
             user.blogs.map(blog => 
-            <li key={blog.id}>{blog.title}</li>
+            <TableRow key={blog.id} ><TableCell ><Typography>{blog.title}</Typography></TableCell></TableRow>
             )
           }
-        </ul>
+          </TableBody>
+        </Table>
         :
         <p>
           No blogs created by this user

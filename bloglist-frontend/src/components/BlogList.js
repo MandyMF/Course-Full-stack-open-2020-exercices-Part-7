@@ -1,6 +1,12 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
 import Blog from './Blog'
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableContainer
+} from '@material-ui/core'
 
 const BlogList = () => { 
 
@@ -9,13 +15,15 @@ const BlogList = () => {
   }))
 
   return (
-    <>
-      <ul style={{padding: '0'}}>
+    <TableContainer>
+      <Table>
+      <TableBody>
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog}/>
+        <TableRow key={blog.id} ><Blog blog={blog}/></TableRow>
       ))}
-      </ul>
-    </>
+      </TableBody>
+      </Table>
+    </TableContainer>
 )}
 
 export default BlogList

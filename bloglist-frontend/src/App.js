@@ -16,12 +16,36 @@ import BlogInfo from './components/BlogInfo'
 import {initUserList} from './reducers/userListReducer'
 import {Switch, Route, Link} from 'react-router-dom'
 
-const App = () => {
+import {
+  Container,
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  Box,
+  Divider
+} from '@material-ui/core'
 
-  const navbarStyle ={
-    backgroundColor: 'lightgrey',
-    marginBottom: '10px'
+import { withStyles} from '@material-ui/core/styles'
+
+const styles = theme => ({
+  buttonRightPadding:{
+    paddingRight:'30px'
+  },
+  title:{
+    paddingLeft:'10px'
+  },
+  blogListDivider:{
+    marginTop:'40px'
+  },
+  appTitle:{
+    paddingBottom:"20px"
   }
+
+})
+
+const App = ({classes}) => {
+  const classStyle = classes
 
   const dispatch = useDispatch()
   const user = useSelector(({user})=> user)
@@ -47,27 +71,32 @@ const App = () => {
 
   return (
   
-  
   <div>
     {user === null ? 
   <LoginForm /> :
   (
   <div>
-  <header style={navbarStyle}>
-    <Link to='/'>
+  <AppBar color='secondary'>
+    <Toolbar>
+      <Button component={Link} to='/'>
       blogs
-    </Link>
-    {' '}
-    <Link to='/users'>
+      </Button>
+      <Button component={Link} to='/users'>
       users
-    </Link>
-    {' '}
-    <span>
-      {user.name} logged in <button id="logout-button" onClick={handleLogout}> logout </button>
-    </span>
-  </header>
+      </Button>
+      <Button className={classStyle.buttonRightPadding} id="logout-button" onClick={handleLogout}> 
+      logout 
+      </Button>
+
+    <Typography className={classStyle.title} variant="h5">
+      {user.name} logged in 
+    </Typography>
+    </Toolbar>
+  </AppBar>
+  <Box paddingTop={10}>
+  <Container>
   <Notification />
-  <h2>blog app</h2>
+  <Typography className={classStyle.appTitle} variant="h4">blog app</Typography>
   <Switch>
     <Route path='/blogs/:id'>
       <BlogInfo />
@@ -87,11 +116,14 @@ const App = () => {
       ref={blogFormRef}>
         <BlogForm CreateBlog={CreateBlog} />
       </Togglable>
+      <Divider className={classStyle.blogListDivider}></Divider>
       <BlogList>
       </BlogList>
     </Route>
 
   </Switch>
+  </Container>
+  </Box>
   </div>
     )
   }
@@ -99,4 +131,4 @@ const App = () => {
   )
 }
 
-export default App
+export default withStyles(styles)(App)

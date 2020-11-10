@@ -1,6 +1,9 @@
 import React from 'react'
 import '../styles/notification.css'
 import {useSelector} from 'react-redux'
+import {
+  Alert
+} from '@material-ui/lab'
 
 
 const Notification = () =>
@@ -10,9 +13,9 @@ const Notification = () =>
   })
 
   return message && 
-    <div className={success ? 'success': 'error'}>
+    <Alert color={success ? 'success': 'error'}>
       {message}
-    </div>
+    </Alert>
 }
 
 export default Notification
