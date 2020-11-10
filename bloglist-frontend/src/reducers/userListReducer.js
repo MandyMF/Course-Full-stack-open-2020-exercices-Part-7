@@ -6,6 +6,7 @@ const userListReducer = (state= [], action) => {
   {
     return action.data
   }
+
   default:
     return state
   }
