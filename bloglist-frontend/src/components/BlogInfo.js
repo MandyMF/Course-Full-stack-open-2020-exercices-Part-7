@@ -9,7 +9,7 @@ const BlogInfo = () =>{
 
   const match = useRouteMatch('/blogs/:id')  
 
-  const blog = useSelector(({blogs, user})=>{
+  const blog = useSelector(({blogs})=>{
     return match     
     ? blogs.find(blog => blog.id === match.params.id)    
     : null
@@ -49,11 +49,26 @@ const BlogInfo = () =>{
         {blog.user.username === username ?
         <button onClick={() => handleDeleteBlog(blog)}>remove</button> :
         <></>}
+
+        <h3>comments</h3>
+        <ul>
+        {
+          blog.comments.length > 0 ?
+          blog.comments.map((comment, index) =>
+            <li key={index}>
+              {comment}
+            </li>
+          )
+          :
+          <p>
+            No comments
+          </p>
+
+        }
+        </ul>
       </div>
       :
-      <div>
-        ERROR NO BLOG WITH THAT ID, ILEGAL ACCESS
-      </div>
+        null
     }
     </div>
   )
