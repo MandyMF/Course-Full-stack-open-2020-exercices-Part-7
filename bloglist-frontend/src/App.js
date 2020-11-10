@@ -11,13 +11,17 @@ import {initUser} from './reducers/userReducer'
 import BlogList from './components/BlogList'
 import UsersInformation from './components/UsersInformation'
 import User from './components/User'
-
+import BlogInfo from './components/BlogInfo'
 
 import {initUserList} from './reducers/userListReducer'
-
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Link} from 'react-router-dom'
 
 const App = () => {
+
+  const navbarStyle ={
+    backgroundColor: 'lightgrey',
+    marginBottom: '10px'
+  }
 
   const dispatch = useDispatch()
   const user = useSelector(({user})=> user)
@@ -49,14 +53,25 @@ const App = () => {
   <LoginForm /> :
   (
   <div>
-  <h2>blogs</h2>
-  <Notification />
-  <div>
-    <p>
+  <header style={navbarStyle}>
+    <Link to='/'>
+      blogs
+    </Link>
+    {' '}
+    <Link to='/users'>
+      users
+    </Link>
+    {' '}
+    <span>
       {user.name} logged in <button id="logout-button" onClick={handleLogout}> logout </button>
-    </p>
-  </div>
+    </span>
+  </header>
+  <Notification />
+  <h2>blog app</h2>
   <Switch>
+    <Route path='/blogs/:id'>
+      <BlogInfo />
+    </Route>
 
     <Route path='/users/:id'>
       <User />
