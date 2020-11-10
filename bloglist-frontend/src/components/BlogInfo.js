@@ -47,6 +47,7 @@ const BlogInfo = () =>{
     event.preventDefault()
 
     dispatch(addComment( blog, event.target.AddComment.value )) 
+    event.target.AddComment.value=''
   }
 
   return (
