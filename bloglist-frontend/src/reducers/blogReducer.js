@@ -21,7 +21,7 @@ const blogReducer = (state = [], action) =>{
           return state.map(item => {
             if(item.id === action.data)
             {
-              const likedBlog = { ...item }
+              let likedBlog = { ...item }
               likedBlog.likes += 1
               return likedBlog
             }
@@ -34,6 +34,19 @@ const blogReducer = (state = [], action) =>{
             return item.id === action.data ? false : true
           })
         }
+
+      case 'ADD_COMMENT':
+      {
+        return state.map(item => {
+          if(item.id === action.data.id)
+          {
+            let commented_blog = { ...item }
+            commented_blog.comments.push(action.data.comment)
+            return commented_blog
+          }
+          return item
+        })
+      }
       default:{
         return state
       }
@@ -105,6 +118,24 @@ export const deleteBlog =(blog)=>{
     catch(exception)
     {
       dispatch(setNotification({ success:false, message:`blog ${blog.title} by ${blog.author} could not be deleted` },5))
+    }
+  }
+}
+
+export const addComment =(blog, comment)=>{
+  return async (dispatch)=>{
+    try{
+      await blogService.addComment(blog, comment)
+
+      dispatch({
+        type:'ADD_COMMENT',
+        data: {id:blog.id, comment}
+      })
+      dispatch(setNotification({ success:true, message:`Comment Added`},5))
+    }
+    catch(exception)
+    {
+      dispatch(setNotification({ success:false, message:`Comment couldn't be Added` },5))
     }
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useRouteMatch, useHistory} from 'react-router-dom'
-import {likeBlog, deleteBlog} from '../reducers/blogReducer'
+import {likeBlog, deleteBlog, addComment} from '../reducers/blogReducer'
 
 const BlogInfo = () =>{
   const history = useHistory()
@@ -31,6 +31,12 @@ const BlogInfo = () =>{
     dispatch(deleteBlog(blog))
   }
 
+  const handleAddComment=(event)=>{
+    event.preventDefault()
+
+    dispatch(addComment( blog, event.target.AddComment.value )) 
+  }
+
   return (
     <div>
     {
@@ -51,6 +57,11 @@ const BlogInfo = () =>{
         <></>}
 
         <h3>comments</h3>
+        <form onSubmit={handleAddComment}>
+        <input id='addComment' name='AddComment' />
+        <button type='submit'>add comment</button>
+        </form>
+
         <ul>
         {
           blog.comments.length > 0 ?
